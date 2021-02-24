@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 10, 2017 at 02:16 PM
--- Server version: 5.6.34
--- PHP Version: 7.1.0
+-- Host: 127.0.0.1
+-- Generation Time: Feb 24, 2021 at 05:03 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ciapp`
+-- Database: `multilanguage`
 --
 
 -- --------------------------------------------------------
@@ -54,7 +55,7 @@ INSERT INTO `banned` (`id`, `ip`, `created_at`, `updated_at`, `deleted_at`, `cre
 CREATE TABLE `ci_sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
-  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -64,7 +65,12 @@ CREATE TABLE `ci_sessions` (
 
 INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('0549375ef6cfb3e7eafe972bffae11234b8fbb85', '::1', 1486732301, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438363733323232383b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22726f223b6c616e675f736c75677c733a303a22223b6964656e746974797c733a31333a2261646d696e6973747261746f72223b757365726e616d657c733a31333a2261646d696e6973747261746f72223b656d61696c7c733a31353a2261646d696e4061646d696e2e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231343432333139363834223b),
-('a99b329a4cb21ab8c87ada2965edf5609d030356', '::1', 1486732266, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438363733323233333b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22656e223b6c616e675f736c75677c733a333a22656e2f223b);
+('817vimh8lgk0sokhu2u8nlcg58d2h6s0', '127.0.0.1', 1614180370, 0x5f5f63695f6c6173745f726567656e65726174657c693a313631343138303337303b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22656e223b6c616e675f736c75677c733a333a22656e2f223b),
+('a99b329a4cb21ab8c87ada2965edf5609d030356', '::1', 1486732266, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438363733323233333b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22656e223b6c616e675f736c75677c733a333a22656e2f223b),
+('d5r4hdo8kepsud7e1alm1t54m66gdllb', '127.0.0.1', 1614182480, 0x5f5f63695f6c6173745f726567656e65726174657c693a313631343138323333303b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22726f223b6c616e675f736c75677c733a303a22223b),
+('eqs5ccvhm5c0pit6mamncek0rfisglvt', '127.0.0.1', 1614109575, 0x5f5f63695f6c6173745f726567656e65726174657c693a313631343130393439313b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22656e223b6c616e675f736c75677c733a333a22656e2f223b),
+('s8m5ia9dstqbq4jgvd0asbv5roa1h4rt', '127.0.0.1', 1614180995, 0x5f5f63695f6c6173745f726567656e65726174657c693a313631343138303939353b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a22726f223b6c616e675f736c75677c733a303a22223b),
+('to5uv0n6g26r3b83nrpro73asgvqb2pl', '127.0.0.1', 1614182330, 0x5f5f63695f6c6173745f726567656e65726174657c693a313631343138323333303b64656661756c745f6c616e677c733a323a22726f223b7365745f6c616e67756167657c733a323a226573223b6c616e675f736c75677c733a333a2265732f223b);
 
 -- --------------------------------------------------------
 
@@ -75,10 +81,10 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 CREATE TABLE `contents` (
   `id` int(11) NOT NULL,
   `content_type` varchar(100) NOT NULL,
-  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `featured_image` varchar(255) NOT NULL,
   `order` int(4) UNSIGNED NOT NULL,
-  `published` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `published` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `published_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -101,11 +107,11 @@ CREATE TABLE `content_translations` (
   `title` varchar(255) DEFAULT NULL,
   `short_title` varchar(255) DEFAULT NULL,
   `teaser` mediumtext NOT NULL,
-  `content` longtext,
+  `content` longtext DEFAULT NULL,
   `page_title` varchar(100) DEFAULT NULL,
   `page_description` varchar(170) DEFAULT NULL,
   `page_keywords` varchar(255) DEFAULT NULL,
-  `rake` tinyint(1) DEFAULT '0',
+  `rake` tinyint(1) DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -122,11 +128,11 @@ CREATE TABLE `content_translations` (
 
 CREATE TABLE `dictionary` (
   `id` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   `word` varchar(255) NOT NULL,
   `language_slug` varchar(10) NOT NULL,
-  `noise` tinyint(1) NOT NULL DEFAULT '0',
-  `verified` tinyint(1) NOT NULL DEFAULT '0'
+  `noise` tinyint(1) NOT NULL DEFAULT 0,
+  `verified` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -161,8 +167,8 @@ CREATE TABLE `images` (
   `content_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `file` varchar(255) NOT NULL,
-  `width` int(5) NOT NULL DEFAULT '0',
-  `height` int(5) NOT NULL DEFAULT '0',
+  `width` int(5) NOT NULL DEFAULT 0,
+  `height` int(5) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` int(11) NOT NULL,
@@ -213,7 +219,7 @@ CREATE TABLE `languages` (
   `slug` varchar(10) NOT NULL,
   `language_directory` varchar(100) NOT NULL,
   `language_code` varchar(20) DEFAULT NULL,
-  `default` tinyint(1) NOT NULL DEFAULT '0'
+  `default` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -222,7 +228,9 @@ CREATE TABLE `languages` (
 
 INSERT INTO `languages` (`id`, `language_name`, `slug`, `language_directory`, `language_code`, `default`) VALUES
 (1, 'Română', 'ro', 'romanian', 'ro_RO', 1),
-(8, 'English', 'en', 'english', 'en_US', 0);
+(8, 'English', 'en', 'english', 'en_US', 0),
+(9, 'Spanish', 'es', 'Spanish', 'es_ES', 0),
+(10, 'Hindi', 'hi', 'Hindi', 'hi_IN', 0);
 
 -- --------------------------------------------------------
 
@@ -270,7 +278,7 @@ INSERT INTO `menus` (`id`, `title`, `created_at`, `updated_at`, `deleted_at`, `c
 CREATE TABLE `menu_items` (
   `id` int(11) NOT NULL,
   `menu_id` int(11) UNSIGNED NOT NULL,
-  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `order` int(4) UNSIGNED NOT NULL,
   `styling` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -302,7 +310,7 @@ CREATE TABLE `menu_item_translations` (
   `language_slug` varchar(5) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
-  `absolute_path` tinyint(1) DEFAULT '0',
+  `absolute_path` tinyint(1) DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -348,7 +356,7 @@ CREATE TABLE `slugs` (
   `translation_id` int(11) NOT NULL,
   `language_slug` varchar(5) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `redirect` int(11) NOT NULL DEFAULT '0',
+  `redirect` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -418,7 +426,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 CREATE TABLE `website` (
   `title` varchar(255) NOT NULL,
   `page_title` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `admin_email` varchar(200) NOT NULL,
   `contact_email` varchar(200) NOT NULL,
   `modified_by` varchar(200) NOT NULL
@@ -562,86 +570,103 @@ ALTER TABLE `users_groups`
 --
 ALTER TABLE `banned`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `contents`
 --
 ALTER TABLE `contents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT for table `content_translations`
 --
 ALTER TABLE `content_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
 --
 -- AUTO_INCREMENT for table `dictionary`
 --
 ALTER TABLE `dictionary`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1324;
+
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `keyphrases`
 --
 ALTER TABLE `keyphrases`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `keywords`
 --
 ALTER TABLE `keywords`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `menu_item_translations`
 --
 ALTER TABLE `menu_item_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `phrases`
 --
 ALTER TABLE `phrases`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `slugs`
 --
 ALTER TABLE `slugs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Constraints for dumped tables
 --
@@ -652,6 +677,7 @@ ALTER TABLE `users_groups`
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `users_groups_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
